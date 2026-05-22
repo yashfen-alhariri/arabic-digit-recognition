@@ -1,6 +1,8 @@
 venv/
 data/
-outputs/*.npy
+outputs/X_train_cnn.npy
+outputs/X_val_cnn.npy
+outputs/X_test_cnn.npy
 __pycache__/
 *.pyc
 .DS_Store
