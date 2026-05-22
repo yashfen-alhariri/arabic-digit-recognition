@@ -1,0 +1,9 @@
+CNN Results
+===========
+Test accuracy  : 99.48%
+Parameters     : 1,701,578
+Training time  : 921.5s
+Best val acc   : 99.57%
+Model size     : 6.5 MB
+Architecture   : Conv2D(32) -> Conv2D(64) -> Conv2D(128) -> Dense(256) -> Dense(10)
+Extras         : BatchNorm after each conv, Dropout(0.5) before output

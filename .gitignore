@@ -1,0 +1,8 @@
+venv/
+data/
+outputs/*.npy
+__pycache__/
+*.pyc
+.DS_Store
+my_handwriting/
+my_digits/
