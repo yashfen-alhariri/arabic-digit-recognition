@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('Agg')
 import numpy as np
 from sklearn.svm import SVC
 from sklearn.metrics import classification_report, confusion_matrix, f1_score
