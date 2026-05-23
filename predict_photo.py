@@ -9,7 +9,7 @@ import os, glob
 
 register_heif_opener()  # enables PIL to open HEIC
 
-# ── model ─────────────────────────────────────────────────────────────────────
+# -- model ------------------------------------------------------------------
 class ArabicCNN(nn.Module):
     def __init__(self):
         super().__init__()
@@ -33,7 +33,7 @@ model = ArabicCNN()
 model.load_state_dict(torch.load("cnn_results/best_cnn.pt"))
 model.eval()
 
-# ── preprocessing: photo → 28x28 like training data ──────────────────────────
+# -- preprocessing: photo -> 28x28 like training data ----------------------
 def preprocess(path):
     img = Image.open(path).convert('L')
     img = np.array(img)
@@ -46,7 +46,7 @@ def preprocess(path):
 
     h, w = img.shape
 
-    # crop center 60% of the image — digit is always roughly centered
+    # crop center 60% of the image - digit is always roughly centered
     y1, y2 = int(h * 0.2), int(h * 0.8)
     x1, x2 = int(w * 0.2), int(w * 0.8)
     img = img[y1:y2, x1:x2]
@@ -86,7 +86,8 @@ def preprocess(path):
                                   cv2.BORDER_CONSTANT, value=0)
     resized = cv2.resize(cropped, (28, 28), interpolation=cv2.INTER_AREA)
     return resized.astype("float32") / 255.0
-# ── predict all photos ────────────────────────────────────────────────────────
+
+# -- predict all photos -----------------------------------------------------
 photos = sorted(glob.glob("IMG_*.HEIC") + glob.glob("IMG_*.jpg") + glob.glob("IMG_*.png"))
 print(f"Found {len(photos)} photos: {photos}\n")
 
@@ -105,7 +106,7 @@ for i, path in enumerate(photos):
         pred   = probs.argmax().item()
         conf   = probs[pred].item()
 
-    print(f"{path} → Predicted: {pred}  ({conf*100:.1f}% confidence)")
+    print(f"{path} -> Predicted: {pred}  ({conf*100:.1f}% confidence)")
 
     # top row: preprocessed image
     axes[0, i].imshow(img, cmap='gray')
@@ -121,8 +122,8 @@ for i, path in enumerate(photos):
 
 axes[0, 0].set_ylabel("Preprocessed", fontsize=9)
 axes[1, 0].set_ylabel("Original photo", fontsize=9)
-plt.suptitle("Real photo predictions — Arabic digit CNN", fontsize=12)
+plt.suptitle("Real photo predictions - Arabic digit CNN", fontsize=12)
 plt.tight_layout()
 plt.savefig("outputs/real_photo_predictions.png", dpi=120)
 plt.close()
-print("\nSaved → outputs/real_photo_predictions.png")
+print("\nSaved -> outputs/real_photo_predictions.png")
